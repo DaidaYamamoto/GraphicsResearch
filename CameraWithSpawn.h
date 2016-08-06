@@ -6,30 +6,30 @@
 #include "CameraWithSpawn.generated.h"
 
 const int NUM_LOD = 6;
-const int NUM_MATERIAL = 20;
+const int NUM_MATERIAL = 37;
 const int NUM_OBJECT = NUM_MATERIAL * NUM_LOD;
 
 UCLASS()
-class MYTEST_API ACameraWithSpawn : public APawn
+class SUNTEMPLE_API ACameraWithSpawn : public APawn
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
-	ACameraWithSpawn(const FObjectInitializer& ObjectInitializer);
+    // Sets default values for this pawn's properties
+    ACameraWithSpawn(const FObjectInitializer& ObjectInitializer);
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+    // Called every frame
+    virtual void Tick(float DeltaSeconds) override;
 
-	UStaticMeshComponent* mStaticMeshComponent;
-	UStaticMesh* mStaticMesh[NUM_OBJECT];
-	UMaterial*  mMaterial[NUM_MATERIAL];
+    // Called to bind functionality to input
+    virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+    UStaticMeshComponent* mStaticMeshComponent;
+    UStaticMesh* mStaticMesh[NUM_OBJECT];
+    UMaterial*  mMaterial[NUM_MATERIAL];
 
     // タイマー
     float accumulateTime;
@@ -52,3 +52,4 @@ public:
     void YawCamera(float AxisValue);
     void StartCapture();
 };
+
