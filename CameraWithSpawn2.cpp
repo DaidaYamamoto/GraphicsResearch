@@ -5,7 +5,7 @@
 
 #define CAPTURE_FINAL (1)
 
-const int startVariationIndex = 148 * 11;
+const int startVariationIndex = 10000 + 0;
 
 const TCHAR* objectList[NUM_OBJECT] = {
     // 1 ŒÂ–Ú (InfinityBladeAdversaries)
@@ -275,116 +275,6 @@ const TCHAR* objectList[NUM_OBJECT] = {
     _T("/Game/Assets/SK_CharM_Tusk_LOD4.SK_CharM_Tusk_LOD4"),
     _T("/Game/Assets/SK_CharM_Tusk_LOD5.SK_CharM_Tusk_LOD5"),
 
-    // 38 ŒÂ–Ú (KiteDemo)
-    /*
-    _T("/Game/Assets/SM_Cliff01_LOD0.SM_Cliff01_LOD0"),
-    _T("/Game/Assets/SM_Cliff01_LOD1.SM_Cliff01_LOD1"),
-    _T("/Game/Assets/SM_Cliff01_LOD2.SM_Cliff01_LOD2"),
-    _T("/Game/Assets/SM_Cliff01_LOD3.SM_Cliff01_LOD3"),
-    _T("/Game/Assets/SM_Cliff01_LOD4.SM_Cliff01_LOD4"),
-    _T("/Game/Assets/SM_Cliff01_LOD5.SM_Cliff01_LOD5"),
-
-    _T("/Game/Assets/BogMyrtle_01_LOD0.BogMyrtle_01_LOD0"),
-    _T("/Game/Assets/BogMyrtle_01_LOD1.BogMyrtle_01_LOD1"),
-    _T("/Game/Assets/BogMyrtle_01_LOD2.BogMyrtle_01_LOD2"),
-    _T("/Game/Assets/BogMyrtle_01_LOD3.BogMyrtle_01_LOD3"),
-    _T("/Game/Assets/BogMyrtle_01_LOD4.BogMyrtle_01_LOD4"),
-    _T("/Game/Assets/BogMyrtle_01_LOD5.BogMyrtle_01_LOD5"),
-
-    _T("/Game/Assets/BogMyrtleBush_01_LOD0.BogMyrtleBush_01_LOD0"),
-    _T("/Game/Assets/BogMyrtleBush_01_LOD1.BogMyrtleBush_01_LOD1"),
-    _T("/Game/Assets/BogMyrtleBush_01_LOD2.BogMyrtleBush_01_LOD2"),
-    _T("/Game/Assets/BogMyrtleBush_01_LOD3.BogMyrtleBush_01_LOD3"),
-    _T("/Game/Assets/BogMyrtleBush_01_LOD4.BogMyrtleBush_01_LOD4"),
-    _T("/Game/Assets/BogMyrtleBush_01_LOD5.BogMyrtleBush_01_LOD5"),
-
-    // 41 ŒÂ–Ú
-    _T("/Game/Assets/SM_Fern_01_LOD0.SM_Fern_01_LOD0"),
-    _T("/Game/Assets/SM_Fern_01_LOD1.SM_Fern_01_LOD1"),
-    _T("/Game/Assets/SM_Fern_01_LOD2.SM_Fern_01_LOD2"),
-    _T("/Game/Assets/SM_Fern_01_LOD3.SM_Fern_01_LOD3"),
-    _T("/Game/Assets/SM_Fern_01_LOD4.SM_Fern_01_LOD4"),
-    _T("/Game/Assets/SM_Fern_01_LOD5.SM_Fern_01_LOD5"),
-
-    _T("/Game/Assets/SM_FieldScabious_01_LOD0.SM_FieldScabious_01_LOD0"),
-    _T("/Game/Assets/SM_FieldScabious_01_LOD1.SM_FieldScabious_01_LOD1"),
-    _T("/Game/Assets/SM_FieldScabious_01_LOD2.SM_FieldScabious_01_LOD2"),
-    _T("/Game/Assets/SM_FieldScabious_01_LOD3.SM_FieldScabious_01_LOD3"),
-    _T("/Game/Assets/SM_FieldScabious_01_LOD4.SM_FieldScabious_01_LOD4"),
-    _T("/Game/Assets/SM_FieldScabious_01_LOD5.SM_FieldScabious_01_LOD5"),
-
-    _T("/Game/Assets/SM_Yarrow3_LOD0.SM_Yarrow3_LOD0"),
-    _T("/Game/Assets/SM_Yarrow3_LOD1.SM_Yarrow3_LOD1"),
-    _T("/Game/Assets/SM_Yarrow3_LOD2.SM_Yarrow3_LOD2"),
-    _T("/Game/Assets/SM_Yarrow3_LOD3.SM_Yarrow3_LOD3"),
-    _T("/Game/Assets/SM_Yarrow3_LOD4.SM_Yarrow3_LOD4"),
-    _T("/Game/Assets/SM_Yarrow3_LOD5.SM_Yarrow3_LOD5"),
-
-    _T("/Game/Assets/SM_FieldGrass_01_LOD0.SM_FieldGrass_01_LOD0"),
-    _T("/Game/Assets/SM_FieldGrass_01_LOD1.SM_FieldGrass_01_LOD1"),
-    _T("/Game/Assets/SM_FieldGrass_01_LOD2.SM_FieldGrass_01_LOD2"),
-    _T("/Game/Assets/SM_FieldGrass_01_LOD3.SM_FieldGrass_01_LOD3"),
-    _T("/Game/Assets/SM_FieldGrass_01_LOD4.SM_FieldGrass_01_LOD4"),
-    _T("/Game/Assets/SM_FieldGrass_01_LOD5.SM_FieldGrass_01_LOD5"),
-
-    _T("/Game/Assets/SM_Boulder05a_LOD0.SM_Boulder05a_LOD0"),
-    _T("/Game/Assets/SM_Boulder05a_LOD1.SM_Boulder05a_LOD1"),
-    _T("/Game/Assets/SM_Boulder05a_LOD2.SM_Boulder05a_LOD2"),
-    _T("/Game/Assets/SM_Boulder05a_LOD3.SM_Boulder05a_LOD3"),
-    _T("/Game/Assets/SM_Boulder05a_LOD4.SM_Boulder05a_LOD4"),
-    _T("/Game/Assets/SM_Boulder05a_LOD5.SM_Boulder05a_LOD5"),
-
-    // 46 ŒÂ–Ú (KiteDemo)
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD0.SM_GroundRevealRock001_LOD0"),
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD1.SM_GroundRevealRock001_LOD1"),
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD2.SM_GroundRevealRock001_LOD2"),
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD3.SM_GroundRevealRock001_LOD3"),
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD4.SM_GroundRevealRock001_LOD4"),
-    _T("/Game/Assets/SM_GroundRevealRock001_LOD5.SM_GroundRevealRock001_LOD5"),
-
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD0.SM_GroundRevealRock002_LOD0"),
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD1.SM_GroundRevealRock002_LOD1"),
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD2.SM_GroundRevealRock002_LOD2"),
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD3.SM_GroundRevealRock002_LOD3"),
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD4.SM_GroundRevealRock002_LOD4"),
-    _T("/Game/Assets/SM_GroundRevealRock002_LOD5.SM_GroundRevealRock002_LOD5"),
-
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD0.LargeVolcanicRock_001_LOD0"),
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD1.LargeVolcanicRock_001_LOD1"),
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD2.LargeVolcanicRock_001_LOD2"),
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD3.LargeVolcanicRock_001_LOD3"),
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD4.LargeVolcanicRock_001_LOD4"),
-    _T("/Game/Assets/LargeVolcanicRock_001_LOD5.LargeVolcanicRock_001_LOD5"),
-
-    _T("/Game/Assets/Medium_Boulder_001_LOD0.Medium_Boulder_001_LOD0"),
-    _T("/Game/Assets/Medium_Boulder_001_LOD1.Medium_Boulder_001_LOD1"),
-    _T("/Game/Assets/Medium_Boulder_001_LOD2.Medium_Boulder_001_LOD2"),
-    _T("/Game/Assets/Medium_Boulder_001_LOD3.Medium_Boulder_001_LOD3"),
-    _T("/Game/Assets/Medium_Boulder_001_LOD4.Medium_Boulder_001_LOD4"),
-    _T("/Game/Assets/Medium_Boulder_001_LOD5.Medium_Boulder_001_LOD5"),
-
-    _T("/Game/Assets/ScotsPineTall_01_LOD0.ScotsPineTall_01_LOD0"),
-    _T("/Game/Assets/ScotsPineTall_01_LOD1.ScotsPineTall_01_LOD1"),
-    _T("/Game/Assets/ScotsPineTall_01_LOD2.ScotsPineTall_01_LOD2"),
-    _T("/Game/Assets/ScotsPineTall_01_LOD3.ScotsPineTall_01_LOD3"),
-    _T("/Game/Assets/ScotsPineTall_01_LOD4.ScotsPineTall_01_LOD4"),
-    _T("/Game/Assets/ScotsPineTall_01_LOD5.ScotsPineTall_01_LOD5"),
-
-    // 51 ŒÂ–Ú (KiteDemo)
-    _T("/Game/Assets/Tree_Stump_01_LOD0.Tree_Stump_01_LOD0"),
-    _T("/Game/Assets/Tree_Stump_01_LOD1.Tree_Stump_01_LOD1"),
-    _T("/Game/Assets/Tree_Stump_01_LOD2.Tree_Stump_01_LOD2"),
-    _T("/Game/Assets/Tree_Stump_01_LOD3.Tree_Stump_01_LOD3"),
-    _T("/Game/Assets/Tree_Stump_01_LOD4.Tree_Stump_01_LOD4"),
-    _T("/Game/Assets/Tree_Stump_01_LOD5.Tree_Stump_01_LOD5"),
-
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD0.SM_Vegetation_Debris_002_LOD0"),
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD1.SM_Vegetation_Debris_002_LOD1"),
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD2.SM_Vegetation_Debris_002_LOD2"),
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD3.SM_Vegetation_Debris_002_LOD3"),
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD4.SM_Vegetation_Debris_002_LOD4"),
-    _T("/Game/Assets/SM_Vegetation_Debris_002_LOD5.SM_Vegetation_Debris_002_LOD5"),
-    */
 };
 
 const TCHAR* materialList[NUM_MATERIAL] = {
@@ -435,27 +325,6 @@ const TCHAR* materialList[NUM_MATERIAL] = {
     _T("/Game/InfinityBladeWarriors/Character/CompleteCharacters/Textures_Materials/CharM_Tusk/M_Char_Horn.M_Char_Horn"),
     _T("/Game/InfinityBladeWarriors/Character/CompleteCharacters/Textures_Materials/CharM_Warrior/M_Char_Warrior.M_Char_Warrior"),
 
-    // 38 ŒÂ–Ú (KiteDemo)
-    /*
-    _T("/Game/KiteDemo/Environments/Cliffs/Cliff01/MI_Cliff01.MI_Cliff01"),
-    _T("/Game/KiteDemo/Environments/Foliage/BogMyrtle_01/BogMyrtle_01_Fronds_Mat.BogMyrtle_01_Fronds_Mat"),
-    _T("/Game/KiteDemo/Environments/Foliage/BogMyrtleBush_01/MI_BogMyrtleBush_01_Billboard.MI_BogMyrtleBush_01_Billboard"),
-    // 41 ŒÂ–Ú
-    _T("/Game/KiteDemo/Environments/Foliage/Ferns/M_Fern_01.M_Fern_01"),
-    _T("/Game/KiteDemo/Environments/Foliage/Flowers/FieldScabious/M_FieldScabious_01.M_FieldScabious_01"),
-    _T("/Game/KiteDemo/Environments/Foliage/Flowers/Yarrow/M_Yarrow_Inst.M_Yarrow_Inst"),
-    _T("/Game/KiteDemo/Environments/Foliage/Grass/FieldGrass/M_FieldGrass_01.M_FieldGrass_01"),
-    _T("/Game/KiteDemo/Environments/Rocks/Boulder_05a/MI_Boulder05a.MI_Boulder05a"),
-    // 46 ŒÂ–Ú
-    _T("/Game/KiteDemo/Environments/Rocks/GroundRevealRock001/MI_GroundRevealRock001a.MI_GroundRevealRock001a"),
-    _T("/Game/KiteDemo/Environments/Rocks/GroundRevealRock002/MI_GroundRevealRock002.MI_GroundRevealRock002"),
-    _T("/Game/KiteDemo/Environments/Rocks/Large_Volcanic_Rock_001/MI_Large_VolcanicRock_002.MI_Large_VolcanicRock_002"),
-    _T("/Game/KiteDemo/Environments/Rocks/Medium_Boulder_001/MI_MediumBoulder_0012.MI_MediumBoulder_0012"),
-    _T("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPineTall_01_Billboard_Mat.ScotsPineTall_01_Billboard_Mat"),
-    // 51 ŒÂ–Ú
-    _T("/Game/KiteDemo/Environments/Trees/Tree_Stump_01/MI_Tree_Stump_01.MI_Tree_Stump_01"),
-    _T("/Game/KiteDemo/Environments/Trees/Vegetation_Debris_002/MI_Vegetation_Debris_002.MI_Vegetation_Debris_002"),
-    */
 };
 
 const float scaleList[NUM_MATERIAL] = {
