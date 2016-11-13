@@ -25,7 +25,7 @@ public:
     virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
     UStaticMeshComponent* mStaticMeshComponent;
-    UStaticMesh* mStaticMesh[NUM_LOD_TYPE][NUM_OBJECT];
+    UStaticMesh* mStaticMesh[NUM_OBJECT];
     UMaterial*  mMaterial[NUM_MATERIAL];
 
     // タイマー
@@ -35,7 +35,7 @@ public:
     bool bStartCapture, bScreenShotFlag, bDummyScreenShotFlag;
     int remeshType, objectIndex, materialIndex;
     int variationIndex, lodIndex, rotationIndex, iterationIndex, cameraIndex;
-    float currentYRotation;
+    float currentYRotation, currentDistance;
 
     //Input variables (入力変数)
     FVector2D MovementInput;

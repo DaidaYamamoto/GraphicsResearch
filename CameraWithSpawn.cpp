@@ -43,37 +43,28 @@ ACameraWithSpawn::ACameraWithSpawn(const FObjectInitializer& ObjectInitializer)
     }
 
     variationIndex = 0;
-    for (size_t j = 0; j < 3; j++)
+    for (size_t i = 0; i < NUM_OBJECT; i++)
     {
-        for (size_t i = 0; i < NUM_OBJECT; i++)
-        {
-            int lodtype = FMath::RandRange(0, 2);
-            ConstructorHelpers::FObjectFinder<UStaticMesh>* pMeshAsset;
-            if(j == 0)
-                pMeshAsset = new ConstructorHelpers::FObjectFinder<UStaticMesh>(objectList1[i]);
-            else if (j == 1)
-                pMeshAsset = new ConstructorHelpers::FObjectFinder<UStaticMesh>(objectList2[i]);
-            else
-                pMeshAsset = new ConstructorHelpers::FObjectFinder<UStaticMesh>(objectList3[i]);
+        int lodtype = FMath::RandRange(0, 2);
+        ConstructorHelpers::FObjectFinder<UStaticMesh>* pMeshAsset;
+        pMeshAsset = new ConstructorHelpers::FObjectFinder<UStaticMesh>(objectList[i]);
 
-            if ( pMeshAsset->Succeeded() )
-            {
-                mStaticMesh[j][i] = pMeshAsset->Object;
-                mStaticMesh[j][i]->Materials[0] = mMaterial[i / NUM_LOD];
-                UE_LOG(LogTemp, Warning, TEXT("output : %s %s"), objectList1[i], L"メッシュロードに成功しました");
-            }
-            else
-            {
-                UE_LOG(LogTemp, Warning, TEXT("output : %s %s"), objectList1[i], L"メッシュロードに失敗しました");
-            }
+        if (pMeshAsset->Succeeded())
+        {
+            mStaticMesh[i] = pMeshAsset->Object;
+            mStaticMesh[i]->Materials[0] = mMaterial[i / NUM_LOD];
+            UE_LOG(LogTemp, Warning, TEXT("output : %s %s"), objectList[i], L"メッシュロードに成功しました");
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("output : %s %s"), objectList[i], L"メッシュロードに失敗しました");
         }
     }
-
     mStaticMeshComponent = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("StaticMeshName"));
     // オブジェクトが生成出来ました
     if (mStaticMeshComponent)
     {
-        mStaticMeshComponent->SetStaticMesh(mStaticMesh[0][0]);
+        mStaticMeshComponent->SetStaticMesh(mStaticMesh[0]);
         mStaticMeshComponent->AttachTo(RootComponent);
     }
 }
@@ -85,12 +76,17 @@ void ACameraWithSpawn::BeginPlay()
 
 }
 
-void GetRandomObjectId(int& remeshType, int& materialIndex, int& objectIdx, float& rotation)
+void GetRandomObjectId(int& remeshType, int& materialIndex, int& objectIdx, float& rotation, float& distant)
 {
-    remeshType = FMath::RandRange(0, NUM_LOD_TYPE-1);
+//    remeshType = FMath::RandRange(0, NUM_LOD_TYPE - 1);
+    remeshType = 0;
+    int tmp = materialIndex;
     materialIndex = FMath::RandRange(0, NUM_MATERIAL - 1);
+    if(materialIndex == tmp)
+        materialIndex = FMath::RandRange(0, NUM_MATERIAL - 1);
     objectIdx = materialIndex * NUM_LOD;
-    rotation = FMath::RandRange(-89.0f, -1.0f);
+    rotation = FMath::RandRange(-89, -1);
+    distant = FMath::RandRange(-50, 50);
 }
 
 // Called every frame
@@ -103,27 +99,31 @@ void ACameraWithSpawn::Tick(float DeltaTime)
     {
         const float timeToNextObject = 0.4f;
 
-        if ( cameraIndex == numCameraLocation )
+        if (cameraIndex == numCameraLocation)
         {
             // キャプチャを終了する
             bStartCapture = false;
             accumulateTime = 0;
             cameraIndex = materialIndex = objectIndex = lodIndex = 0;
-            mStaticMeshComponent->SetStaticMesh(mStaticMesh[0][0]);
+            mStaticMeshComponent->SetStaticMesh(mStaticMesh[0]);
             mStaticMeshComponent->SetRelativeScale3D(FVector(scaleList[0]));
             mStaticMeshComponent->SetRelativeRotation(FRotator(0.0f, currentYRotation, 0.0f));
         }
-        else if ( (accumulateTime > timeToNextObject / 2) && bScreenShotFlag )
+        else if ((accumulateTime > timeToNextObject / 2) && bScreenShotFlag)
         {
-            TCHAR tmpchar[128]; FString filename;
+            TCHAR tmpchar[256]; FString filename;
             // 比較を行うバリエーション / リメッシュのバリエーション
-            _stprintf_s(tmpchar, sizeof(tmpchar), _T("%.7d_%.1d_%.1d.png"), startVariationIndex + variationIndex, rotationIndex, lodIndex);
+            _stprintf_s(tmpchar, sizeof(tmpchar), _T("%.5d_%.1d_%.1d_%.5d_%.2d_%.1d_%.3d_%.3d.png"),
+                startVariationIndex + variationIndex, rotationIndex, lodIndex,
+                1000*0 + cameraIndex, objectIndex / NUM_LOD, remeshType,
+                (int)currentYRotation, (int)currentDistance + 50);
             filename.AppendChars(tmpchar, sizeof(tmpchar));
 
             // スクリーンショットの撮影
-                FScreenshotRequest screenshot = FScreenshotRequest();
+            FScreenshotRequest screenshot = FScreenshotRequest();
             if (bDummyScreenShotFlag)
             {
+                screenshot.RequestScreenshot("dummy.jpg", false, false);
                 screenshot.RequestScreenshot("dummy.jpg", false, false);
                 bDummyScreenShotFlag = bScreenShotFlag = false;
             }
@@ -133,7 +133,7 @@ void ACameraWithSpawn::Tick(float DeltaTime)
                 bScreenShotFlag = false;
             }
         }
-        else if ( accumulateTime > timeToNextObject )
+        else if (accumulateTime > timeToNextObject)
         {
             if (currentYRotation > 270.0f)
             {
@@ -141,7 +141,7 @@ void ACameraWithSpawn::Tick(float DeltaTime)
                 if (lodIndex == NUM_LOD)
                 {
                     // 次のジオメトリに飛ぶ
-                    GetRandomObjectId(remeshType, materialIndex, objectIndex, currentYRotation);
+                    GetRandomObjectId(remeshType, materialIndex, objectIndex, currentYRotation, currentDistance);
                     accumulateTime = -1.0f;
                     lodIndex = 0;
                     variationIndex++; iterationIndex++;
@@ -160,22 +160,23 @@ void ACameraWithSpawn::Tick(float DeltaTime)
                 {
                     // 次の LOD に飛ぶ
                     currentYRotation -= 270.0f;
-                    accumulateTime = -0.2f;
+                    accumulateTime = -0.3f;
                     objectIndex++;
                     rotationIndex = 0;
                 }
                 UE_LOG(LogTemp, Warning, TEXT("remeshinType is %d, object index is %d"), remeshType, objectIndex);
-                mStaticMeshComponent->SetStaticMesh(mStaticMesh[remeshType][objectIndex]);
+                mStaticMeshComponent->SetStaticMesh(mStaticMesh[objectIndex]);
             }
             else
             {
                 // ローテーションのバリエーションを行う
                 rotationIndex++;
                 currentYRotation += 90.0f;
-                accumulateTime = -0.2f;
+                accumulateTime = -0.3f;
             }
             mStaticMeshComponent->SetRelativeScale3D(FVector(scaleList[materialIndex]));
             mStaticMeshComponent->SetRelativeRotation(FRotator(0.0f, currentYRotation, 0.0f));
+            mStaticMeshComponent->SetRelativeLocation(FVector(currentDistance, 0.0f, 0.0f));
 
             bScreenShotFlag = true;
         }
@@ -243,19 +244,20 @@ void ACameraWithSpawn::StartCapture()
     bStartCapture = bScreenShotFlag = true; bDummyScreenShotFlag = true;
     variationIndex = lodIndex = cameraIndex = iterationIndex = 0;
     rotationIndex = -1;
-    
-    GetRandomObjectId(remeshType, materialIndex, objectIndex, currentYRotation);
+
+    GetRandomObjectId(remeshType, materialIndex, objectIndex, currentYRotation, currentDistance);
     SetActorLocation(cameraLocation[0].actorLocation);
     SetActorRotation(cameraLocation[0].actorRotation);
-    mStaticMeshComponent->SetStaticMesh(mStaticMesh[remeshType][objectIndex]);
+    mStaticMeshComponent->SetStaticMesh(mStaticMesh[objectIndex]);
     mStaticMeshComponent->SetRelativeScale3D(FVector(scaleList[materialIndex]));
     mStaticMeshComponent->SetRelativeRotation(FRotator(0.0f, currentYRotation, 0.0f));
-    accumulateTime = -0.2f;
+    mStaticMeshComponent->SetRelativeLocation(FVector(currentDistance, 0.f, 0.f));
+    accumulateTime = -1.0f;
 #else
     FVector actorLocation = GetActorLocation();
     FRotator actorRotation = GetActorRotation();
 
-    UE_LOG(LogTemp, Log, TEXT("Kinuwaki4 :     { FVector(%f, %f, %f), FRotator(%f, %f, %f) },\n") , actorLocation[0], actorLocation[1], actorLocation[2],
+    UE_LOG(LogTemp, Log, TEXT("Kinuwaki1 :     { FVector(%f, %f, %f), FRotator(%f, %f, %f) },\n"), actorLocation[0], actorLocation[1], actorLocation[2],
         actorRotation.Pitch, actorRotation.Yaw, actorRotation.Roll);
 #endif
 }
